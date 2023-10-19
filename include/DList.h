@@ -52,9 +52,9 @@ class DList
 
     private:
         void createDummyHead();
-        //Go to specific index and return poiter to node at that position
+        //Go to specific index and return pointer to node at that position
         Nodeptr goToIndex(int idx);
-        //head pointer, pointing to dummy noce actually
+        //head pointer, pointing to dummy node actually
         Nodeptr head;
 };
 
