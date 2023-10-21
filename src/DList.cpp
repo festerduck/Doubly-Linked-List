@@ -15,7 +15,7 @@ DList::~DList()
     //Delete Dummy Node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    delete head;
     //---------------------------
 }
 
@@ -34,7 +34,13 @@ DList::DList(const DList& other)
 
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    int counter = 0;
+    while(other_curr != other_head)
+    {
+        addAt(counter, other_curr->data);
+        counter++;
+        other_curr = other_curr->next;
+    }
     //---------------------------
 }
 
@@ -44,6 +50,8 @@ bool DList::empty() const
     //Write your code between these lines only
     //---------------------------
     //TODO
+    return (head->next == head);
+
     //---------------------------
 }
 
@@ -71,9 +79,10 @@ int DList::getAt(int idx)
     {
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    return pos->data;
     //---------------------------
     }
+    return -1;
 }
 
 // add to the head
@@ -86,19 +95,26 @@ void DList::addHead(int newdata)
     //Create New Node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    Nodeptr New = new Node;
     //---------------------------
 
     //Populate the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    New->data = newdata;
     //---------------------------
 
     //Link the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+
+
+        New->next = head->next;
+        New->prev = head;
+        (New->next)->prev = New;
+        (New->prev)->next = New;
+
+
     //---------------------------
 }
 
@@ -114,15 +130,15 @@ void DList::delHead()
     //Update references
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    (curr->prev)->next = curr->next;
+    (curr->next)->prev = curr->prev;
     //---------------------------
 
     //Free Node Memory on Heap
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    delete curr;
     //---------------------------
-
 }
 
 // add to the head
@@ -137,12 +153,16 @@ void DList::addTail(int newdata)
     //Write your code between these lines only
     //---------------------------
     //TODO
-    //---------------------------
+    newnode->data = newdata;
+
 
     //Link the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    newnode->prev = curr->prev;
+    newnode->next = (newnode->prev)->next;
+    curr->prev = newnode;
+    (newnode->prev)->next = newnode;
     //---------------------------
 
 }
@@ -159,13 +179,14 @@ void DList::delTail()
     //Update references
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    (curr->next)->prev = curr->prev;
+    (curr->prev)->next = curr->next;
     //---------------------------
 
     //Free Node Memory on Heap
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    delete curr;
     //---------------------------
 
 }
@@ -181,19 +202,22 @@ void DList::addAt(int idx, int newdata)
     //Create New Node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    Nodeptr New = new Node;
     //---------------------------
 
     //Populate the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+        New->data = newdata;
     //---------------------------
 
     //Link the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+        New->next = curr;
+        New->prev = curr->prev;
+        (New->prev)->next = New;
+        (New->next)->prev = New;
     //---------------------------
 
 }
@@ -209,15 +233,15 @@ void DList::delAt(int idx)
     //Update references
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    (curr->prev)->next = curr->next;
+    (curr->next)->prev = curr->prev;
     //---------------------------
 
     //Free Node Memory on Heap
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    delete curr;
     //---------------------------
-
 
 }
 
@@ -226,7 +250,14 @@ int DList::length() const
 {
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    int counter = 0;
+    Nodeptr curr = head->next;
+    while(curr != head)
+    {
+        counter++;
+        curr = curr->next;
+    }
+    return counter;
     //---------------------------
 
 }
@@ -265,7 +296,7 @@ void DList::Clear()
         delHead();
 }
 
-//Go to specific index and return poiter to node at that position
+//Go to specific index and return pointer to node at that position
 //Indexing is zero based
 Nodeptr DList::goToIndex(int idx)
 {
@@ -279,7 +310,15 @@ Nodeptr DList::goToIndex(int idx)
     Nodeptr curr = head->next;
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    int counter = 0;
+    while(curr != head)
+    {
+        if(counter == idx)
+            break;
+        counter++;
+        curr = curr->next;
+    }
+
     //---------------------------
 
     return curr;

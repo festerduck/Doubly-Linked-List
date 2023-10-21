@@ -9,3 +9,13 @@
 
 1634220000 d:\office_work\datastructure\labs\codeblocks\lab_03_doubly_linked_list\include\dlist.h
 
+1697913714 source:d:\dsa_github\doubly-linked-list\main.cpp
+	<iostream>
+	<DList.h>
+
+1697880357 d:\dsa_github\doubly-linked-list\include\dlist.h
+
+1697913489 source:d:\dsa_github\doubly-linked-list\src\dlist.cpp
+	"DList.h"
+	<iostream>
+

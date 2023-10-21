@@ -22,7 +22,7 @@ int main()
 	cout<<L.getAt(3)<<endl;
 	L.delAt(3);
 	L.addAt(3, 15);
-
+   // cout << L.length() << endl;
 	DList N(L);
 	N.print();
 	L.delTail();
