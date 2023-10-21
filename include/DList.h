@@ -2,16 +2,16 @@
 #define DLIST_H
 
 // Node Structure
+template <typename T>
 struct Node{
 	public:
-		int data;
-		Node* next;
-		Node* prev;
+		T data;
+		Node<T>* next;
+		Node<T>* prev;
 };
-// Defining Node Pointer Type
-typedef Node* Nodeptr;
 
 // List Class Declaration
+template <class T>
 class DList
 {
     public:
@@ -25,21 +25,21 @@ class DList
         // boolean function
         bool empty() const;
         // access head element
-        int headElement() const;
+        T headElement() const;
         // access tail element
-        int tailElement() const;
+        T tailElement() const;
         // access element at specific index
-        int getAt(int idx);
+        T getAt(int idx);
         // add to the head
-        void addHead(int newdata);
+        void addHead(T newdata);
         // delete the head
         void delHead();
         // add to the head
-        void addTail(int newdata);
+        void addTail(T newdata);
         // delete the head
         void delTail();
         // add to the head
-        void addAt(int idx, int newdata);
+        void addAt(int idx, T newdata);
         // delete the head
         void delAt(int idx);
         // Clear the list
@@ -53,9 +53,9 @@ class DList
     private:
         void createDummyHead();
         //Go to specific index and return pointer to node at that position
-        Nodeptr goToIndex(int idx);
+        Node<T>* goToIndex(int idx);
         //head pointer, pointing to dummy node actually
-        Nodeptr head;
+        Node<T>* head;
 };
 
 #endif // DLIST_H

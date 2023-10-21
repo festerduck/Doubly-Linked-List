@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    DList L;
+    DList<int> L;
     L.print();
 	L.addHead(30);
 	L.print();
@@ -23,7 +23,7 @@ int main()
 	L.delAt(3);
 	L.addAt(3, 15);
 
-	DList N(L);
+	DList<int> N(L);
 	N.print();
 	L.delTail();
 	L.print();
@@ -34,7 +34,7 @@ int main()
 	N.delTail();
 	N.print();
 
-	DList R;
+	DList<int> R;
 	R.print();
 	if(R.empty())
 		cout << "List R empty" << endl;

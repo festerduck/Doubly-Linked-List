@@ -9,3 +9,21 @@
 
 1634220000 d:\office_work\datastructure\labs\codeblocks\lab_03_doubly_linked_list\include\dlist.h
 
+1697873098 source:c:\users\huzai\onedrive - higher education commission\3rd semester\dsa lab\doubly-linked-list\main.cpp
+	<iostream>
+	<DList.h>
+
+1697884982 c:\users\huzai\onedrive - higher education commission\3rd semester\dsa lab\doubly-linked-list\include\dlist.h
+
+1697885171 source:c:\users\huzai\onedrive - higher education commission\3rd semester\dsa lab\doubly-linked-list\src\dlist.cpp
+	"DList.h"
+	<iostream>
+
+1697885167 source:c:\users\huzai\onedrive - higher education commission\3rd semester\dsa lab\doubly-linked-list\src\dlist_impl.cpp
+	<iostream>
+	"DList.cpp"
+
+1697885171 c:\users\huzai\onedrive - higher education commission\3rd semester\dsa lab\doubly-linked-list\src\dlist.cpp
+	"DList.h"
+	<iostream>
+

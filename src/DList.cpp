@@ -3,24 +3,27 @@
 
 using namespace std;
 
-DList::DList()
+template <typename T>
+DList<T>::DList()
 {
     createDummyHead();
 }
 
-DList::~DList()
+template <typename T>
+DList<T>::~DList()
 {
     //Clear The list
     Clear();
     //Delete Dummy Node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    delete(head);
     //---------------------------
 }
 
 // copy constructor
-DList::DList(const DList& other)
+template <typename T>
+DList<T>::DList(const DList& other)
 {
     //Initialize current list
     createDummyHead();
@@ -29,26 +32,37 @@ DList::DList(const DList& other)
         return;
     //Iterate through all the nodes of other list
     //and add all data elements to current list
-    Nodeptr other_curr = other.head->next;
-    Nodeptr other_head = other.head;
+    Node<T>* other_curr = other.head->next;
+    Node<T>* other_head = other.head;
 
     //Write your code between these lines only
     //---------------------------
-    //TODO
+
+    while (other_curr != other_head)
+    {
+        this->addTail(other_curr->data);
+        other_curr = other_curr->next;
+    }
+
     //---------------------------
 }
 
 // boolean function
-bool DList::empty() const
+template <typename T>
+bool DList<T>::empty() const
 {
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    if (head->next == head)
+        return 1;
+    else
+        return 0;
     //---------------------------
 }
 
 // access head element
-int DList::headElement() const
+template <typename T>
+T DList<T>::headElement() const
 {
     if(!empty())
         return head->next->data;
@@ -56,7 +70,8 @@ int DList::headElement() const
 }
 
 // access tail element
-int DList::tailElement() const
+template <typename T>
+T DList<T>::tailElement() const
 {
     if(!empty())
         return head->prev->data;
@@ -64,178 +79,206 @@ int DList::tailElement() const
 }
 
 // access element at specific index
-int DList::getAt(int idx)
+template <typename T>
+T DList<T>::getAt(int idx)
 {
-    Nodeptr pos = goToIndex(idx);
+    Node<T>* pos = goToIndex(idx);
     if(pos != NULL)
     {
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    return pos->data;
     //---------------------------
     }
 }
 
 // add to the head
-void DList::addHead(int newdata)
+template <typename T>
+void DList<T>::addHead(T newdata)
 {
     //Location to insert Head Node,
     //Between DummyHead and Actual First Node
-    Nodeptr curr = head->next;
+    Node<T>* curr = head->next;
 
     //Create New Node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    Node<T>* node = new Node<T>;
     //---------------------------
 
     //Populate the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    node->data = newdata;
     //---------------------------
 
     //Link the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    node->next = head->next;
+    node->prev = head;
+    head->next->prev = node;
+    head->next = node;
     //---------------------------
 }
 
 // delete the head
-void DList::delHead()
+template <typename T>
+void DList<T>::delHead()
 {
     //Check if list is empty ? Do nothing
     if(empty())
         return;
     //Location to delete Head Node,
     //Just after DummyHead
-    Nodeptr curr = head->next;
+    Node<T>* curr = head->next;
     //Update references
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    head->next = curr->next;
+    curr->next->prev = head;
     //---------------------------
 
     //Free Node Memory on Heap
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    delete(curr);
     //---------------------------
 
 }
 
 // add to the head
-void DList::addTail(int newdata)
+template <typename T>
+void DList<T>::addTail(T newdata)
 {
     //Location to insert Head Node,
     //Between DummyHead and Actual Last Node
-    Nodeptr curr = head;
+    Node<T>* curr = head;
     //Create New Node
-    Nodeptr newnode = new Node;
+    Node<T>* newnode = new Node<T>;
     //Populate the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    newnode->data = newdata;
     //---------------------------
 
     //Link the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    newnode->prev = curr->prev;
+    newnode->next = curr;
+    curr->prev->next = newnode;
+    curr->prev = newnode;
     //---------------------------
 
 }
 
 // delete the head
-void DList::delTail()
+template <typename T>
+void DList<T>::delTail()
 {
     //Check if list is empty ? Do nothing
     if(empty())
         return;
     //Location to delete Tail Node,
     //Just Before DummyHead
-    Nodeptr curr = head->prev;
+    Node<T>* curr = head->prev;
     //Update references
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    curr->prev->next = head;
+    head->prev = curr->prev;
     //---------------------------
 
     //Free Node Memory on Heap
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    delete(curr);
     //---------------------------
 
 }
 
 // add to the head
-void DList::addAt(int idx, int newdata)
+template <typename T>
+void DList<T>::addAt(int idx, T newdata)
 {
     //Get node at current position
-    Nodeptr curr = goToIndex(idx);
+    Node<T>* curr = goToIndex(idx);
     if(curr == NULL)    //Index exceed size
         return;
 
     //Create New Node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    Node<T>* node = new Node<T>;
     //---------------------------
 
     //Populate the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    node->data = newdata;
     //---------------------------
 
     //Link the new created node
     //Write your code between these lines only
     //---------------------------
-    //TODO
+
+    node->next = curr;
+    node->prev = curr->prev;
+    curr->prev->next = node;
+    curr->prev = node;
     //---------------------------
 
 }
 
 // delete the head
-void DList::delAt(int idx)
+template <typename T>
+void DList<T>::delAt(int idx)
 {
     //Get node at current position
-    Nodeptr curr = goToIndex(idx);
+    Node<T>* curr = goToIndex(idx);
     if(curr == NULL)    //Index exceed size
         return;
 
     //Update references
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    curr->prev->next = curr->next;
+    curr->next->prev = curr->prev;
     //---------------------------
 
     //Free Node Memory on Heap
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    delete(curr);
     //---------------------------
 
 
 }
 
 // utility function to get length of list
-int DList::length() const
+template <typename T>
+int DList<T>::length() const
 {
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    Node<T>* curr = head->next;
+    int len;
+    for (len = 0; curr != head; len++)
+    {
+        curr = curr->next;
+    }
+    return len;
     //---------------------------
 
 }
 
 // display the list
-void DList::print() const
+template <typename T>
+void DList<T>::print() const
 {
     //Set the starting point of list
-    Nodeptr curr = head->next;
+    Node<T>* curr = head->next;
     cout << "[";
     //Iterate and display list.
     //Make sure to handle comma ',' seperation is correct
@@ -251,15 +294,17 @@ void DList::print() const
 }
 
 // Add dummy Head and populate
-void DList::createDummyHead()
+template <typename T>
+void DList<T>::createDummyHead()
 {
-    head = new Node;
+    head = new Node<T>;
     head->next = head;
     head->prev = head;
 }
 
 // Clear The List
-void DList::Clear()
+template <typename T>
+void DList<T>::Clear()
 {
     while(!empty())
         delHead();
@@ -267,7 +312,8 @@ void DList::Clear()
 
 //Go to specific index and return poiter to node at that position
 //Indexing is zero based
-Nodeptr DList::goToIndex(int idx)
+template <typename T>
+Node<T>* DList<T>::goToIndex(int idx)
 {
     if(idx > length())
     {
@@ -276,10 +322,13 @@ Nodeptr DList::goToIndex(int idx)
     }
 
     //Iterate uptill given index
-    Nodeptr curr = head->next;
+    Node<T>* curr = head->next;
     //Write your code between these lines only
     //---------------------------
-    //TODO
+    for (int i = 0; i != idx && curr != head; i++)
+    {
+        curr = curr->next;
+    }
     //---------------------------
 
     return curr;
